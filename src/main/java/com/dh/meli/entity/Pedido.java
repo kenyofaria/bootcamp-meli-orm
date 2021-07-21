@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
+
 @Entity
 public class Pedido {
 
@@ -31,7 +32,8 @@ public class Pedido {
 	@ManyToOne
 	private Cliente cliente; //cliente_id
 
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemPedido> itens = new ArrayList<>();
 	
 	public Pedido() {

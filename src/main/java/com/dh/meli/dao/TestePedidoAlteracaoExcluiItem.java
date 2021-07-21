@@ -61,7 +61,6 @@ public class TestePedidoAlteracaoExcluiItem {
 		
 			Pedido pedidoExistente = pedidoDao.getById(1L);
 			pedidoExistente.getItens().remove(1);
-			pedidoDao.altera(pedidoExistente);
 			em.getTransaction().commit();
 			
 		}catch(Exception e) {

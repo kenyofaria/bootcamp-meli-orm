@@ -21,31 +21,31 @@ public class PedidoDao {
 		this.em.persist(pedido);
 	}
 	
-	public void altera(Pedido pedido) {
-		TypedQuery<ItemPedido> qry = this.em.createQuery("from ItemPedido where pedido.id =: pId", ItemPedido.class);
-		qry.setParameter("pId", pedido.getId());
-		List<ItemPedido> itensBD = qry.getResultList();
-		List<ItemPedido> novaLista = pedido.getItens();
-		
-		List<ItemPedido> itensParaRemocao = obtemItensParaExclusao(itensBD, novaLista);
-		itensParaRemocao.forEach(item -> removeItem(item));
-		this.em.persist(pedido);
-	}
-
-	private List<ItemPedido> obtemItensParaExclusao(List<ItemPedido> itensBD, List<ItemPedido> novaLista) {
-		List<ItemPedido> itensParaRemocao = itensBD.stream().filter(
-				   itemBD -> {			
-					return !novaLista.stream()
-					  .anyMatch(novoItem -> novoItem.getId().equals(itemBD.getId()));
-				   }) 
-	              .collect(Collectors.toList());
-		return itensParaRemocao;
-	}
+//	public void altera(Pedido pedido) {
+//		TypedQuery<ItemPedido> qry = this.em.createQuery("from ItemPedido where pedido.id =: pId", ItemPedido.class);
+//		qry.setParameter("pId", pedido.getId());
+//		List<ItemPedido> itensBD = qry.getResultList();
+//		List<ItemPedido> novaLista = pedido.getItens();
+//		
+//		List<ItemPedido> itensParaRemocao = obtemItensParaExclusao(itensBD, novaLista);
+//		itensParaRemocao.forEach(item -> removeItem(item));
+//		this.em.persist(pedido);
+//	}
+//
+//	private List<ItemPedido> obtemItensParaExclusao(List<ItemPedido> itensBD, List<ItemPedido> novaLista) {
+//		List<ItemPedido> itensParaRemocao = itensBD.stream().filter(
+//				   itemBD -> {			
+//					return !novaLista.stream()
+//					  .anyMatch(novoItem -> novoItem.getId().equals(itemBD.getId()));
+//				   }) 
+//	              .collect(Collectors.toList());
+//		return itensParaRemocao;
+//	}
 	
-	private void removeItem(ItemPedido item) {
-		item = this.em.merge(item);
-		this.em.remove(item);
-	}
+//	private void removeItem(ItemPedido item) {
+//		item = this.em.merge(item);
+//		this.em.remove(item);
+//	}
 
 	public void exclui(Pedido pedido) {
 		this.em.remove(pedido);
